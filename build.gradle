@@ -1,0 +1,65 @@
+description = 'Java SDK of WeChat'
+group = 'com.saintdan.util'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+ext {
+    commonsLang3Version = '3.4'
+    commonsCodecVersion = '1.10'
+    fastJsonVersion = '1.2.7'
+    httpclientVersion = '4.5.1'
+
+    junitVersion = '4.12'
+}
+
+dependencies {
+
+    compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    compile "commons-codec:commons-codec:"
+    compile "com.alibaba:fastjson:${fastJsonVersion}"
+    compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+
+    testCompile "junit:junit:${junitVersion}"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.10'
+}
+
+task generatePom << {
+    pom{}.writeTo("pom.xml")
+}
