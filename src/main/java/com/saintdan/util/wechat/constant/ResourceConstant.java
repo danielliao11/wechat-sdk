@@ -9,6 +9,10 @@ package com.saintdan.util.wechat.constant;
  */
 public interface ResourceConstant {
 
+    // Token
     String TOKEN = "/cgi-bin/token";
+
+    // IP address
+    String IP_ADDRESS = "/cgi-bin/getcallbackip";
 
 }

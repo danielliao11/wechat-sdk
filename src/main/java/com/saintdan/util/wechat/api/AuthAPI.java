@@ -7,6 +7,7 @@ import com.saintdan.util.wechat.enums.ErrorType;
 import com.saintdan.util.wechat.exception.AuthException;
 import com.saintdan.util.wechat.exception.EncryptException;
 import com.saintdan.util.wechat.http.DefaultHttpClient;
+import com.saintdan.util.wechat.result.IPAddressResult;
 import com.saintdan.util.wechat.result.TokenResult;
 import com.saintdan.util.wechat.tools.WeChatEncryptUtil;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -51,7 +52,7 @@ public class AuthAPI extends BaseAPI {
      * @param secret        secret
      * @return              token result
      */
-    public TokenResult getAccessToken(String appId,String secret) {
+    public TokenResult getAccessToken(String appId, String secret) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
                 .setUri(URIConstant.BASE_URI + ResourceConstant.TOKEN)
                 .addParameter(TokenConstant.GRANT_TYPE, TokenConstant.CLIENT_CREDENTIAL)
@@ -59,6 +60,20 @@ public class AuthAPI extends BaseAPI {
                 .addParameter(TokenConstant.SECRET, secret)
                 .build();
         return DefaultHttpClient.executeJsonResult(httpUriRequest, TokenResult.class);
+    }
+
+    /**
+     * Get IP address of WeChat.
+     *
+     * @param accessToken   access token
+     * @return              ip address result
+     */
+    public IPAddressResult getIPAddress(String accessToken) {
+        HttpUriRequest httpUriRequest = RequestBuilder.post()
+                .setUri(URIConstant.BASE_URI + ResourceConstant.IP_ADDRESS)
+                .addParameter(TokenConstant.ACCESS_TOKEN, accessToken)
+                .build();
+        return DefaultHttpClient.executeJsonResult(httpUriRequest, IPAddressResult.class);
     }
 
     /**
