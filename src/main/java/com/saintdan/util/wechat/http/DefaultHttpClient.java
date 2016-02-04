@@ -1,6 +1,10 @@
 package com.saintdan.util.wechat.http;
 
 import com.saintdan.util.wechat.enums.HttpScheme;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
@@ -32,5 +36,49 @@ public class DefaultHttpClient {
             e.printStackTrace();
         }
         httpClient = HttpClientFactory.createHttpClientIgnoreSSL(maxTotal, maxPerRoute, hostName, port, httpScheme);
+    }
+
+    /**
+     * Execute the http uri request.
+     *
+     * @param request       http uri request
+     * @return              http response
+     */
+    public static CloseableHttpResponse execute(HttpUriRequest request){
+        try {
+            return httpClient.execute(request, HttpClientContext.create());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Execute the request with responseHandler.
+     *
+     * @param request               http uri request
+     * @param responseHandler       response handler
+     * @param <T>                   type of response handler
+     * @return                      response
+     */
+    public static <T> T execute(HttpUriRequest request, ResponseHandler<T> responseHandler){
+        try {
+            return httpClient.execute(request, responseHandler, HttpClientContext.create());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Execute the request with JSON response handler, and transfer the response to JSON.
+     *
+     * @param request               http uri request
+     * @param clazz                 class
+     * @param <T>                   type
+     * @return                      JSON response
+     */
+    public static <T> T executeJsonResult(HttpUriRequest request,Class<T> clazz){
+        return execute(request,JSONResponseHandler.createResponseHandler(clazz));
     }
 }

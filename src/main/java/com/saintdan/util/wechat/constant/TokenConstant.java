@@ -17,6 +17,8 @@ public interface TokenConstant {
 
     String GRANT_TYPE = "grant_typte";
 
+    String CLIENT_CREDENTIAL = "client_credential";
+
     String APPID = "appid";
 
     String SECRET = "secret";
