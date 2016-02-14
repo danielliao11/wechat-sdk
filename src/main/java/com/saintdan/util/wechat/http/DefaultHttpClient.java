@@ -71,7 +71,7 @@ public class DefaultHttpClient {
     }
 
     /**
-     * Execute the request with JSON response handler, and transfer the response to JSON.
+     * Execute the request with JSON response handler, and convert the response to JSON.
      *
      * @param request               http uri request
      * @param clazz                 class
