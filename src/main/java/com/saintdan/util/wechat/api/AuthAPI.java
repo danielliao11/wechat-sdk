@@ -1,5 +1,6 @@
 package com.saintdan.util.wechat.api;
 
+import com.saintdan.util.wechat.constant.AuthConstant;
 import com.saintdan.util.wechat.constant.ResourceConstant;
 import com.saintdan.util.wechat.constant.TokenConstant;
 import com.saintdan.util.wechat.constant.URIConstant;
@@ -54,7 +55,7 @@ public class AuthAPI extends BaseAPI {
      */
     public TokenResult getAccessToken(String appId, String secret) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
-                .setUri(URIConstant.BASE_URI + ResourceConstant.TOKEN)
+                .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(AuthConstant.TOKEN)))
                 .addParameter(TokenConstant.GRANT_TYPE, TokenConstant.CLIENT_CREDENTIAL)
                 .addParameter(TokenConstant.APPID, appId)
                 .addParameter(TokenConstant.SECRET, secret)
@@ -70,7 +71,7 @@ public class AuthAPI extends BaseAPI {
      */
     public IPAddressResult getIPAddress(String accessToken) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
-                .setUri(URIConstant.BASE_URI + ResourceConstant.IP_ADDRESS)
+                .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(AuthConstant.IP_ADDRESS)))
                 .addParameter(TokenConstant.ACCESS_TOKEN, accessToken)
                 .build();
         return DefaultHttpClient.executeJsonResult(httpUriRequest, IPAddressResult.class);

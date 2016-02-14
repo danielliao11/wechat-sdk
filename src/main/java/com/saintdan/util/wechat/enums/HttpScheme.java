@@ -1,7 +1,7 @@
 package com.saintdan.util.wechat.enums;
 
 /**
- * Http scheme
+ * Http scheme.
  *
  * @author <a href="http://github.com/saintdan">Liao Yifan</a>
  * @date 2/2/16

@@ -47,11 +47,11 @@ ext {
 }
 
 dependencies {
-
     compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
     compile "commons-codec:commons-codec:"
     compile "com.alibaba:fastjson:${fastJsonVersion}"
     compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    compile "org.apache.httpcomponents:httpmime:${httpclientVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }
