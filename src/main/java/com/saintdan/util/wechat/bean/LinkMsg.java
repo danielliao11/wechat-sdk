@@ -24,7 +24,7 @@ public class LinkMsg extends BaseMsg {
     }
 
     public String getTitle() {
-        return title;
+        return convert(title);
     }
 
     public void setTitle(String title) {
@@ -32,7 +32,7 @@ public class LinkMsg extends BaseMsg {
     }
 
     public String getDescription() {
-        return description;
+        return convert(description);
     }
 
     public void setDescription(String description) {
@@ -40,7 +40,7 @@ public class LinkMsg extends BaseMsg {
     }
 
     public String getUrl() {
-        return url;
+        return convert(url);
     }
 
     public void setUrl(String url) {
