@@ -56,6 +56,12 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
 }
 
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java', 'src/main/genCode']
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
 }
