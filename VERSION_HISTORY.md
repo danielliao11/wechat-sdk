@@ -1,3 +1,10 @@
  - 0.0.1-SNAPSHOT:
    - Add verify URL API;
    - Add get access token API;
+
+ - 0.0.2-SNAPSHOT:
+   - Add material API.
+   - Add message bean and message xml object.
+   - Add xml response handler;
+   - Modify JSON response handler and move it to component package;
+   - Add JaxbUtil.
