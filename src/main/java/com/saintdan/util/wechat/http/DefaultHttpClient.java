@@ -1,5 +1,6 @@
 package com.saintdan.util.wechat.http;
 
+import com.saintdan.util.wechat.component.JSONResponseHandler;
 import com.saintdan.util.wechat.enums.HttpScheme;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -79,6 +80,6 @@ public class DefaultHttpClient {
      * @return                      JSON response
      */
     public static <T> T executeJsonResult(HttpUriRequest request,Class<T> clazz){
-        return execute(request,JSONResponseHandler.createResponseHandler(clazz));
+        return execute(request, JSONResponseHandler.createResponseHandler(clazz));
     }
 }
