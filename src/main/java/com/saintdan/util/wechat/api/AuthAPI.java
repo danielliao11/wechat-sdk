@@ -39,8 +39,8 @@ public class AuthAPI extends BaseAPI {
      * @throws AuthException
      * @throws EncryptException
      */
-    public String verifyURL(String signature, String timestamp, String nonce, String echoStr, String token, String appId, byte[] aesKey) throws AuthException, EncryptException {
-        if (signature.equals(getSHA1Signature(timestamp, nonce, echoStr, token))) {
+    public static String verifyURL(String signature, String timestamp, String nonce, String echoStr, String token, String appId, byte[] aesKey) throws AuthException, EncryptException {
+        if (!signature.equals(getSHA1Signature(timestamp, nonce, echoStr, token))) {
             throw new AuthException(ErrorType.ATH0010);
         }
         return WeChatEncryptUtil.AESDecrypt(echoStr, appId, aesKey);
@@ -53,7 +53,7 @@ public class AuthAPI extends BaseAPI {
      * @param secret        secret
      * @return              token result
      */
-    public TokenResult getAccessToken(String appId, String secret) {
+    public static TokenResult getAccessToken(String appId, String secret) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
                 .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(AuthConstant.TOKEN)))
                 .addParameter(TokenConstant.GRANT_TYPE, TokenConstant.CLIENT_CREDENTIAL)
@@ -69,7 +69,7 @@ public class AuthAPI extends BaseAPI {
      * @param accessToken   access token
      * @return              ip address result
      */
-    public IPAddressResult getIPAddress(String accessToken) {
+    public static IPAddressResult getIPAddress(String accessToken) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
                 .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(AuthConstant.IP_ADDRESS)))
                 .addParameter(TokenConstant.ACCESS_TOKEN, accessToken)
@@ -83,7 +83,7 @@ public class AuthAPI extends BaseAPI {
      * @return          SHA1 signature
      * @throws EncryptException
      */
-    private String getSHA1Signature(String timestamp, String nonce, String echoStr, String token) throws EncryptException {
+    private static String getSHA1Signature(String timestamp, String nonce, String echoStr, String token) throws EncryptException {
         String[] paramArrary = new String[]{ echoStr, nonce, timestamp, token };
         StringBuffer stringBuffer = new StringBuffer();
         Arrays.sort(paramArrary);
