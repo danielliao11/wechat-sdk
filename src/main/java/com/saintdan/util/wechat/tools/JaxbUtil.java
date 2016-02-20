@@ -1,12 +1,22 @@
 package com.saintdan.util.wechat.tools;
 
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Jaxb util.
@@ -59,5 +69,37 @@ public class JaxbUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Convert xml to map.
+     *
+     * @param xml xml string
+     * @return linked hash map
+     */
+    public static Map<String, String> convertToMap(String xml) {
+        Map<String, String> map = new LinkedHashMap<>();
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            StringReader sr = new StringReader(xml);
+            InputSource is = new InputSource(sr);
+            Document document = db.parse(is);
+            Element root = document.getDocumentElement();
+            if (root != null) {
+                NodeList childNodes = root.getChildNodes();
+                if (childNodes != null && childNodes.getLength() > 0) {
+                    for (int i = 0; i < childNodes.getLength(); i++) {
+                        Node node = childNodes.item(i);
+                        if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+                            map.put(node.getNodeName(), node.getTextContent());
+                        }
+                    }
+                }
+            }
+        } catch (DOMException | ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 }
