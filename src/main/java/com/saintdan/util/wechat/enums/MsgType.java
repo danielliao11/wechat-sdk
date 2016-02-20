@@ -35,4 +35,20 @@ public enum MsgType implements IntentStateWithDescription {
     public String description() {
         return this.description;
     }
+
+    /**
+     * Convert description to message type.
+     *
+     * @param description       description
+     * @return                  message type.
+     */
+    public MsgType parse(String description) {
+        MsgType[] types = MsgType.values();
+        for (MsgType type : types) {
+            if (type.description.equals(description)) {
+                return type;
+            }
+        }
+        return null;
+    }
 }
