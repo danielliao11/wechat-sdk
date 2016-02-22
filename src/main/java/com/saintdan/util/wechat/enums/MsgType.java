@@ -15,7 +15,9 @@ public enum MsgType implements IntentStateWithDescription {
     VIDEO("video"),
     SHORT_VIDEO("shortvideo"),
     LOCATION("location"),
-    LINK("link");
+    LINK("link"),
+
+    UNKNOWN("unknown");
 
     /**
      * Description
@@ -49,6 +51,6 @@ public enum MsgType implements IntentStateWithDescription {
                 return type;
             }
         }
-        return null;
+        return MsgType.UNKNOWN;
     }
 }

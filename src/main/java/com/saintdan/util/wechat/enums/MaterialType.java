@@ -19,7 +19,9 @@ public enum MaterialType implements IntentStateWithDescription {
     IMAGE("image"),
     VOICE("voice"),
     VIDEO("video"),
-    THUMB("thumb");
+    THUMB("thumb"),
+
+    UNKNOWN("unknown");
 
     /**
      * Description
@@ -47,5 +49,21 @@ public enum MaterialType implements IntentStateWithDescription {
      */
     public boolean isVideo() {
         return this.description.equals(VIDEO.description);
+    }
+
+    /**
+     * Convert description to material type.
+     *
+     * @param description       description
+     * @return                  material type.
+     */
+    public static MaterialType parse(String description) {
+        MaterialType[] types = MaterialType.values();
+        for (MaterialType type : types) {
+            if (type.description.equals(description)) {
+                return type;
+            }
+        }
+        return MaterialType.UNKNOWN;
     }
 }
