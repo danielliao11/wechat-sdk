@@ -40,9 +40,9 @@ public class XmlResponseHandler {
                     String str = EntityUtils.toString(entity);
                     Header contentType = response.getEntity().getContentType();
                     if (contentType != null && contentType.toString().matches(".*[uU][tT][fF]-8$")) {
-                        return JaxbUtil.xmlStr2Obj(clazz, str);
+                        return JaxbUtil.convert2Obj(clazz, str);
                     } else {
-                        return JaxbUtil.xmlStr2Obj(clazz, new String(str.getBytes("iso-8859-1"), "utf-8"));
+                        return JaxbUtil.convert2Obj(clazz, new String(str.getBytes("iso-8859-1"), "utf-8"));
                     }
                 } else {
                     throw new ClientProtocolException("Unexpected response status: " + status);

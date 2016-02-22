@@ -12,9 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -36,11 +35,47 @@ public class JaxbUtil {
      * @return              xml object
      */
     @SuppressWarnings("unchecked")
-    public static <T> T xmlStr2Obj(Class<T> clazz, String xmlStr) {
+    public static <T> T convert2Obj(Class<T> clazz, String xmlStr) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             return (T) jaxbUnmarshaller.unmarshal(new StringReader(xmlStr));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Convert input stream to xml object.
+     *
+     * @param clazz         xml object
+     * @param inputStream   input stream
+     * @param <T>           T
+     * @return              xml object
+     */
+    public static <T> T convert2Obj(Class<T> clazz, InputStream inputStream){
+        return convert2Obj(clazz, new InputStreamReader(inputStream));
+    }
+
+    /**
+     * Convert reader to xml object.
+     *
+     * @param clazz         xml object
+     * @param reader        reader
+     * @param <T>           T
+     * @return              xml object
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T convert2Obj(Class<T> clazz, Reader reader){
+        try {
+            Map<Class<?>, Unmarshaller> uMap = uMapLocal.get();
+            if(!uMap.containsKey(clazz)){
+                JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                uMap.put(clazz, unmarshaller);
+            }
+            return (T) uMap.get(clazz).unmarshal(reader);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -102,4 +137,18 @@ public class JaxbUtil {
         }
         return map;
     }
+
+    private static final ThreadLocal<Map<Class<?>,Marshaller>> mMapLocal = new ThreadLocal<Map<Class<?>,Marshaller>>() {
+        @Override
+        protected Map<Class<?>, Marshaller> initialValue() {
+            return new HashMap<>();
+        }
+    };
+
+    private static final ThreadLocal<Map<Class<?>,Unmarshaller>> uMapLocal = new ThreadLocal<Map<Class<?>,Unmarshaller>>(){
+        @Override
+        protected Map<Class<?>, Unmarshaller> initialValue() {
+            return new HashMap<>();
+        }
+    };
 }
