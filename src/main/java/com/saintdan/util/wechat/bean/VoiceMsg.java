@@ -22,8 +22,9 @@ public class VoiceMsg extends BaseMsg {
         return new String(new StringBuilder("<Voice><MediaId>").append(getMediaId()).append("</MediaId></Voice>"));
     }
 
-    public VoiceMsg() {
-        setMsgTypeEnum();
+    @Override
+    public String msgType() {
+        return MsgType.VOICE.description();
     }
 
     public String getMediaId() {
@@ -42,7 +43,4 @@ public class VoiceMsg extends BaseMsg {
         this.format = format;
     }
 
-    private void setMsgTypeEnum() {
-        super.setMsgTypeEnum(MsgType.VOICE);
-    }
 }
