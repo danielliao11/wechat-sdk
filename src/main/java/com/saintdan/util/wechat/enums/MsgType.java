@@ -18,6 +18,7 @@ public enum MsgType implements IntentStateWithDescription {
     LINK("link"),
     MUSIC("music"),
     NEWS("news"),
+    EVENT("event"),
 
     UNKNOWN("unknown");
 
