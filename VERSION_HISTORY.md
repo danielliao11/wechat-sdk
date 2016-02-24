@@ -8,3 +8,6 @@
    - Add xml response handler;
    - Modify JSON response handler and move it to component package;
    - Add JaxbUtil.
+
+ - 0.0.3-SNAPSHOT:
+   - Modify message beans.
