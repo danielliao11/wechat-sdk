@@ -17,6 +17,11 @@ public class VoiceMsg extends BaseMsg {
 
     private String format;
 
+    @Override
+    public String subXML() {
+        return new String(new StringBuilder("<Voice><MediaId>").append(getMediaId()).append("</MediaId></Voice>"));
+    }
+
     public VoiceMsg() {
         setMsgTypeEnum();
     }

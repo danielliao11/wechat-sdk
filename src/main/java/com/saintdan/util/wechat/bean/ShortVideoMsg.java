@@ -17,8 +17,14 @@ public class ShortVideoMsg extends BaseMsg {
 
     private String thumbMediaId;
 
-    public ShortVideoMsg() {
-        setMsgTypeEnum();
+    @Override
+    public String subXML() {
+        return null;
+    }
+
+    @Override
+    public String msgType() {
+        return MsgType.SHORT_VIDEO.description();
     }
 
     public String getMediaId() {
@@ -37,7 +43,4 @@ public class ShortVideoMsg extends BaseMsg {
         this.thumbMediaId = thumbMediaId;
     }
 
-    private void setMsgTypeEnum() {
-        super.setMsgTypeEnum(MsgType.SHORT_VIDEO);
-    }
 }

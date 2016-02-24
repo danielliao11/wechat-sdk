@@ -21,8 +21,14 @@ public class LocationMsg extends BaseMsg {
 
     private String label;
 
-    public LocationMsg() {
-        setMsgTypeEnum();
+    @Override
+    public String subXML() {
+        return null;
+    }
+
+    @Override
+    public String msgType() {
+        return MsgType.LOCATION.description();
     }
 
     public String getLocationX() {
@@ -55,9 +61,5 @@ public class LocationMsg extends BaseMsg {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    private void setMsgTypeEnum() {
-        super.setMsgTypeEnum(MsgType.LOCATION);
     }
 }

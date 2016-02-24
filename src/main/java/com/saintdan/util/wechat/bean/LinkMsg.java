@@ -19,8 +19,14 @@ public class LinkMsg extends BaseMsg {
 
     private String url;
 
-    public LinkMsg() {
-        setMsgTypeEnum();
+    @Override
+    public String subXML() {
+        return null;
+    }
+
+    @Override
+    public String msgType() {
+        return MsgType.LINK.description();
     }
 
     public String getTitle() {
@@ -47,7 +53,4 @@ public class LinkMsg extends BaseMsg {
         this.url = url;
     }
 
-    private void setMsgTypeEnum() {
-        super.setMsgTypeEnum(MsgType.LINK);
-    }
 }

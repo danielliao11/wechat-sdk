@@ -1,7 +1,5 @@
 package com.saintdan.util.wechat.bean;
 
-import com.saintdan.util.wechat.enums.MsgType;
-
 import java.io.Serializable;
 
 /**
@@ -11,7 +9,7 @@ import java.io.Serializable;
  * @date 2/14/16
  * @since JDK1.8
  */
-public class BaseMsg implements Serializable {
+public abstract class BaseMsg implements Serializable {
 
     private static final long serialVersionUID = -2876985813601131566L;
 
@@ -20,8 +18,6 @@ public class BaseMsg implements Serializable {
     private String fromUserName;
 
     private String createTime;
-
-    private MsgType msgTypeEnum;
 
     private String msgType;
 
@@ -33,6 +29,37 @@ public class BaseMsg implements Serializable {
 
     protected String convert(String content) {
         return new String(new StringBuilder(PREFIX).append(content).append(SUFFIX));
+    }
+
+    /**
+     * XML of subclass.
+     *
+     * @return      XML string of subclass.
+     */
+    public abstract String subXML();
+
+    /**
+     * Message type of subclass.
+     *
+     * @return      message type of subclass.
+     */
+    public abstract String msgType();
+
+    /**
+     * Message bean to XML
+     *
+     * @return      XML string
+     */
+    public String toXML() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<xml>");
+        stringBuilder.append("<ToUserName>").append(getToUserName()).append("</ToUserName>");
+        stringBuilder.append("<FromUserName>").append(getFromUserName()).append("</FromUserName>");
+        stringBuilder.append("<CreateTime>").append(System.currentTimeMillis() / 1000).append("</CreateTime>");
+        stringBuilder.append("<MsgType>").append(getMsgType()).append("</MsgType>");
+        stringBuilder.append(subXML());
+        stringBuilder.append("</xml>");
+        return stringBuilder.toString();
     }
 
     public String getToUserName() {
@@ -59,16 +86,12 @@ public class BaseMsg implements Serializable {
         this.createTime = createTime;
     }
 
-    public MsgType getMsgTypeEnum() {
-        return msgTypeEnum;
-    }
-
-    public void setMsgTypeEnum(MsgType msgTypeEnum) {
-        this.msgTypeEnum = msgTypeEnum;
-    }
-
     public String getMsgType() {
-        return convert(msgTypeEnum.description());
+        return convert(msgType());
+    }
+
+    public void setMsgType(String msgType) {
+        this.msgType = msgType;
     }
 
     public Long getMsgId() {

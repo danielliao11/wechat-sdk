@@ -17,8 +17,14 @@ public class ImageMsg extends BaseMsg {
 
     private String mediaId;
 
-    public ImageMsg() {
-        setMsgTypeEnum();
+    @Override
+    public String subXML() {
+        return new String(new StringBuilder("<Image><MediaId>").append(getMediaId()).append("</MediaId></Image>"));
+    }
+
+    @Override
+    public String msgType() {
+        return MsgType.IMAGE.description();
     }
 
     public String getPicUrl() {
@@ -37,7 +43,4 @@ public class ImageMsg extends BaseMsg {
         this.mediaId = mediaId;
     }
 
-    private void setMsgTypeEnum() {
-        super.setMsgTypeEnum(MsgType.IMAGE);
-    }
 }
