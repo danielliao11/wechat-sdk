@@ -13,9 +13,7 @@ public interface TokenConstant {
 
     String EXPIRES_IN = "expires_in";
 
-    String AUTHORIZER_ACCESS_TOKEN = "authorizer_access_token";
-
-    String GRANT_TYPE = "grant_typte";
+    String GRANT_TYPE = "grant_type";
 
     String CLIENT_CREDENTIAL = "client_credential";
 
