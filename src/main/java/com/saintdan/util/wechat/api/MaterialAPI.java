@@ -35,7 +35,7 @@ public class MaterialAPI {
      * @param file              upload file
      * @return                  result {@link MaterialResult}
      */
-    public MaterialResult createOtherMaterial(String accessToken, MaterialType type, File file) {
+    public static MaterialResult createOtherMaterial(String accessToken, MaterialType type, File file) {
         return createOtherMaterial(accessToken, type, file, null);
     }
 
@@ -48,7 +48,7 @@ public class MaterialAPI {
      * @param description       description of video
      * @return                  result {@link MaterialResult}
      */
-    public MaterialResult createOtherMaterial(String accessToken, MaterialType type, File file, VideoMaterialDescription description) {
+    public static MaterialResult createOtherMaterial(String accessToken, MaterialType type, File file, VideoMaterialDescription description) {
         HttpPost httpPost = new HttpPost(new String(
                 new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(MaterialConstant.MATERIAL).append(MaterialConstant.ADD_MATERIAL)));
         FileBody fileBody = new FileBody(file);
@@ -71,7 +71,7 @@ public class MaterialAPI {
      * @param mediaId           media id
      * @return                  result {@link MaterialResult}
      */
-    public MaterialResult deleteOtherMaterial(String accessToken, String mediaId) {
+    public static MaterialResult deleteOtherMaterial(String accessToken, String mediaId) {
         HttpUriRequest httpUriRequest = RequestBuilder.post()
                 .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(MaterialConstant.MATERIAL).append(MaterialConstant.DEL_MATERIAL)))
                 .addParameter(TokenConstant.ACCESS_TOKEN, accessToken)
