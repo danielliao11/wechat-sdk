@@ -33,6 +33,18 @@ public class MaterialAPI {
      * @param accessToken       access token
      * @param type              material type {@link MaterialType}
      * @param file              upload file
+     * @return                  result {@link MaterialResult}
+     */
+    public MaterialResult createOtherMaterial(String accessToken, MaterialType type, File file) {
+        return createOtherMaterial(accessToken, type, file, null);
+    }
+
+    /**
+     * Add other material.
+     *
+     * @param accessToken       access token
+     * @param type              material type {@link MaterialType}
+     * @param file              upload file
      * @param description       description of video
      * @return                  result {@link MaterialResult}
      */
