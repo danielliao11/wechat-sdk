@@ -11,6 +11,8 @@ import com.saintdan.util.wechat.http.DefaultHttpClient;
 import com.saintdan.util.wechat.result.MaterialResult;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 
@@ -48,6 +50,22 @@ public class MaterialAPI {
                 .build();
         httpPost.setEntity(httpEntity);
         return DefaultHttpClient.executeJsonResult(httpPost, MaterialResult.class);
+    }
+
+    /**
+     * Delete other material by media id
+     *
+     * @param accessToken       access token
+     * @param mediaId           media id
+     * @return                  result {@link MaterialResult}
+     */
+    public MaterialResult deleteOtherMaterial(String accessToken, String mediaId) {
+        HttpUriRequest httpUriRequest = RequestBuilder.post()
+                .setUri(new String(new StringBuilder(URIConstant.BASE_URI).append(ResourceConstant.CGI_BIN).append(MaterialConstant.MATERIAL).append(MaterialConstant.DEL_MATERIAL)))
+                .addParameter(TokenConstant.ACCESS_TOKEN, accessToken)
+                .addParameter(MaterialConstant.MEDIA_ID, mediaId)
+                .build();
+        return DefaultHttpClient.executeJsonResult(httpUriRequest, MaterialResult.class);
     }
 
     private final static String MEDIA = "media";

@@ -9,10 +9,14 @@ package com.saintdan.util.wechat.constant;
  */
 public interface MaterialConstant {
 
+    String MEDIA_ID = "media_id";
+
     String MATERIAL = "/material";
 
     String ADD_MATERIAL = "/add_material";
 
     String GET_MATERIAL = "/get_material";
+
+    String DEL_MATERIAL = "/del_material";
 
 }

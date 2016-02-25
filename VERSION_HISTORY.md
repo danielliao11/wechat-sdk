@@ -12,3 +12,4 @@
  - 0.0.3-SNAPSHOT:
    - Modify message beans.
    - Merge message xsd and xml objects.
+   - Add delete other material API.
