@@ -1,6 +1,6 @@
 description = 'Java SDK of WeChat'
 group = 'com.saintdan.util'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -47,17 +47,23 @@ ext {
 }
 
 dependencies {
-
     compile "org.apache.commons:commons-lang3:${commonsLang3Version}"
     compile "commons-codec:commons-codec:"
     compile "com.alibaba:fastjson:${fastJsonVersion}"
     compile "org.apache.httpcomponents:httpclient:${httpclientVersion}"
+    compile "org.apache.httpcomponents:httpmime:${httpclientVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }
 
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java', 'src/main/genCode']
+    }
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.10'
+    gradleVersion = '2.11'
 }
 
 task generatePom << {

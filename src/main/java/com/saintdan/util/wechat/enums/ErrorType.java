@@ -1,7 +1,7 @@
 package com.saintdan.util.wechat.enums;
 
 /**
- * Error type enums.
+ * Type of error.
  *
  * @author <a href="http://github.com/saintdan">Liao Yifan</a>
  * @date 7/21/15
